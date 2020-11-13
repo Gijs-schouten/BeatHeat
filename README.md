@@ -7,3 +7,6 @@ Team:
 * Alex van der Leeuw
 * Luuk Ranzijn
 * David Püschel 
+
+
+[Planning](https://trello.com/b/QaIlAOeD/fys-5)
