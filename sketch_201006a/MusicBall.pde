@@ -4,13 +4,14 @@ class Ball {
   private float yPos;
   private boolean clicked;
   
-  Ball(float speed){
+  Ball(float speed, float y){
       _speed = speed;
+      yPos = y;
   }
   
   void setup(){
-    xPos = 800;
-    yPos = 300;
+    xPos = 900;
+    //yPos = 300;
   }
   
   private void Move(){
@@ -23,8 +24,13 @@ class Ball {
     CheckPos();
   }
   
-  void mouseClicked(){
-      clicked = true;
+  void Hit(){
+    clicked = true;
+      if(indexPos != spawnPos){
+        System.out.println("verkeerde rij");
+        return;      
+      }
+      
       ScoreCalculate();
   }
   
@@ -40,6 +46,8 @@ class Ball {
   }
   
   void ScoreCalculate(){
+    
+    
     if(xPos >= ballLeftMin && xPos <= ballRightMin){
       AddScore(perfectScore);
       System.out.println("goed");
