@@ -25,9 +25,11 @@ class Ball {
   }
   
   void Hit(){
+    System.out.println(yPos);
     clicked = true;
-      if(indexPos != spawnPos){
-        System.out.println("verkeerde rij");
+      if(xPos > ballRightMax){
+        System.out.println("veel te vroeg");
+        AddScore(missScore);
         return;      
       }
       
@@ -35,9 +37,9 @@ class Ball {
   }
   
   void CheckPos(){
-    if(xPos < 0){
+    if(xPos < 50){
+      if(!clicked) AddScore(missScore);
       clicked = true;
-      SpawnBall();
     }  
   }
   

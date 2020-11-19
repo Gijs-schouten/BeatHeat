@@ -3,10 +3,13 @@ import processing.video.*;
 
 private Ball[] myBalls;
 public float score;
+public float scoreMultiplier = 1;
 public int indexPos = 3;
 private int ballIndex = 0;
 private int frontBall = 0;
 public int spawnPos;
+private boolean timeStarted;
+private int startTime;
 PFont font;
 
 void setup() {
@@ -34,21 +37,28 @@ void draw() {;
   fill(CalcColor(indexPos));
   ellipse(150, positions[indexPos], 50, 50);
   fill(CalcColor(spawnPos));
+  BallSpawner();
   DrawBalls();
+  ScoreCounter();
+
 }
 
 public void SpawnBall() {
   spawnPos = int(random(0, 5));
   myBalls[ballIndex] = new Ball(ballSpeed, positions[spawnPos]);
-  ballIndex++;
   myBalls[ballIndex].setup();
+  ballIndex++;
+  ballIndex = ballIndex%5;
 }
 
 void keyPressed() {
   if(key == ' '){
-    myBalls[frontBall].Hit();
-    frontBall++;
-    frontBall = frontBall%5;
+    for(int i = 0; i < myBalls.length; i++){
+      if(myBalls[i].yPos == positions[indexPos]){
+        myBalls[i].Hit();
+        return;
+      }
+    }
   }
   
   if (keyCode == UP || keyCode == 'W') {
@@ -101,6 +111,20 @@ void DrawBoard(){
 
 void DrawBalls(){
   for(int i = 0; i < myBalls.length; i++){
+    if(myBalls[i] == null) return;
     myBalls[i].draw();
   }
+}
+
+void BallSpawner(){
+  if(!timeStarted) startTime = millis(); timeStarted = true;
+  
+  if(millis() > startTime + spawnInterval * 1000){
+    SpawnBall();
+    timeStarted = false;
+  }
+}
+
+void ScoreCounter(){
+  score += 1 / frameRate * scoreMultiplier;
 }
