@@ -1,6 +1,9 @@
+import processing.sound.*;
 import processing.video.*;
 //Movie background;
 
+
+SoundFile file;
 private Ball[] myBalls;
 public float score;
 public float scoreMultiplier = 1;
@@ -20,6 +23,8 @@ void setup() {
   //background.play();
   font = createFont("Arial", 32);
   SpawnBall();
+  file = new SoundFile(this, "UltimateDestruction.wav");
+  file.loop();
 }
 
 /*void movieEvent(Movie m) {
