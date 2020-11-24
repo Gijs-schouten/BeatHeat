@@ -3,7 +3,8 @@ import processing.video.*;
 //Movie background;
 
 
-SoundFile file;
+public SoundFile file;
+public float musicSpeed = 1;
 private Ball[] myBalls;
 public float score;
 public float scoreMultiplier = 1;
@@ -13,6 +14,8 @@ private int frontBall = 0;
 public int spawnPos;
 private boolean timeStarted;
 private int startTime;
+public int combo = 0;
+public int misscombo = 0;
 PFont font;
 
 void setup() {
