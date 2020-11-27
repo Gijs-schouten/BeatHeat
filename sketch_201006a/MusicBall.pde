@@ -22,12 +22,15 @@ class Ball {
   void draw(){
     Move();
     CheckPos();
+    speed();
   }
   
-  void mousePressed(){
-      clicked = true;
-      if(indexPos != spawnPos){
-        System.out.println("verkeerde rij");
+  void Hit(){
+    System.out.println(yPos);
+    clicked = true;
+      if(xPos > ballRightMax){
+        System.out.println("veel te vroeg");
+        AddScore(missScore);
         return;      
       }
       
@@ -35,14 +38,16 @@ class Ball {
   }
   
   void CheckPos(){
-    if(xPos < 0){
+    if(xPos < 50){
+      if(!clicked) AddScore(missScore);
       clicked = true;
-      SpawnBall();
     }  
   }
   
   void AddScore(float amount){
     score += amount;
+    scoreChange = (int)amount;
+    fadeValue = 255;
   }
   
   void ScoreCalculate(){
@@ -51,18 +56,50 @@ class Ball {
     if(xPos >= ballLeftMin && xPos <= ballRightMin){
       AddScore(perfectScore);
       System.out.println("goed");
+      combo += 2;
+      misscombo = 0;
     } 
     
     if(xPos > ballRightMin && xPos < ballRightMax){
       AddScore(minScore);
       System.out.println("te vroeg");
+      combo++;
+      misscombo = 0;
     }
     
     if(xPos < ballLeftMin && xPos > ballLeftMax){
       AddScore(minScore);
       System.out.println("te laat");
+      combo = 0;
+      misscombo ++;
     }
   }
   
   
 }
+
+void speed(){
+ 
+  if(combo > 9){
+    if(musicSpeed < 1.1){
+      musicSpeed = musicSpeed + 0.02;
+       file.rate(musicSpeed);
+       combo = 0;
+       spawnInterval *= 0.8;
+    }
+    
+  }
+  
+  if(misscombo == 10){
+    if(musicSpeed > 0.9){
+      musicSpeed = musicSpeed - 0.02;
+       file.rate(musicSpeed);
+       misscombo = 0;
+       spawnInterval *= 1.2;
+    }
+    
+    
+    
+  }
+  
+  }
