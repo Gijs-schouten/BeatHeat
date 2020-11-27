@@ -20,9 +20,11 @@ class Ball {
   }
   
   void draw(){
+    spawnRate();
     Move();
     CheckPos();
     speed();
+ 
   }
   
   void Hit(){
@@ -49,7 +51,7 @@ class Ball {
   }
   
   void ScoreCalculate(){
-    
+  
     
     if(xPos >= ballLeftMin && xPos <= ballRightMin){
       AddScore(perfectScore);
@@ -76,14 +78,46 @@ class Ball {
   
 }
 
+
+void spawnRate(){
+  int timerStart = 0;
+
+  if(menuActive == true){
+   timerStart =+ millis();
+  }
+  
+  int intervalTimer = millis() - timerStart;
+  
+  if(intervalTimer > 5000){
+    if(intervalTimer < 9000){
+      trueSpawnInterval = spawnInterval[4];
+    }
+  
+  if(intervalTimer > 10000){
+    if(intervalTimer < 14000){
+     trueSpawnInterval = spawnInterval[1];
+  }
+    
+    
+  }
+ }
+  
+
+
+
+
+}
+
+
+
 void speed(){
- 
+  
   if(combo > 9){
     if(musicSpeed < 1.1){
       musicSpeed = musicSpeed + 0.02;
        file.rate(musicSpeed);
        combo = 0;
-       spawnInterval *= 0.8;
+       trueSpawnInterval *= 0.8;
     }
     
   }
@@ -93,11 +127,11 @@ void speed(){
       musicSpeed = musicSpeed - 0.02;
        file.rate(musicSpeed);
        misscombo = 0;
-       spawnInterval *= 1.2;
+       trueSpawnInterval *= 1.2;
     }
     
     
     
   }
   
-  }
+}

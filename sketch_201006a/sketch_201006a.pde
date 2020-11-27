@@ -3,6 +3,15 @@ import processing.video.*;
 //Movie background;
 
 
+//Nummers van de spawnInterval zijn nu nog placeholders om het systeem werkend te krijgen die later kunnen worden aangepast om het stuk volledig werkend te krijgen.
+public float[] spawnInterval = new float[]{
+0.8571428571428571f,
+0.8571428571428571f,
+0.8571428571428571f,
+0.8571428571428571f,
+0.8571428571428571f
+};
+public boolean menuActive = false;
 public SoundFile file;
 public float musicSpeed = 1;
 private Ball[] myBalls;
@@ -10,12 +19,12 @@ public float score;
 public float scoreMultiplier = 1;
 public int indexPos = 3;
 private int ballIndex = 0;
-private int frontBall = 0;
 public int spawnPos;
 private boolean timeStarted;
 private int startTime;
 public int combo = 0;
 public int misscombo = 0;
+public float trueSpawnInterval = 0.8571428571428571f;
 PFont font;
 
 void setup() {
@@ -127,7 +136,7 @@ void DrawBalls(){
 void BallSpawner(){
   if(!timeStarted) startTime = millis(); timeStarted = true;
   
-  if(millis() > startTime + spawnInterval * 1000){
+  if(millis() > startTime + trueSpawnInterval * 1000){
     SpawnBall();
     timeStarted = false;
   }
