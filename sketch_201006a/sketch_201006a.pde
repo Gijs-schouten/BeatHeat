@@ -3,6 +3,18 @@ import processing.video.*;
 //Movie background;
 
 
+<<<<<<< HEAD
+=======
+//Nummers van de spawnInterval zijn nu nog placeholders om het systeem werkend te krijgen die later kunnen worden aangepast om het stuk volledig werkend te krijgen.
+public float[] spawnInterval = new float[]{
+0.8571428571428571f,
+0.8571428571428571f,
+0.8571428571428571f,
+0.8571428571428571f,
+0.8571428571428571f
+};
+public boolean menuActive = false;
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
 public SoundFile file;
 public float musicSpeed = 1;
 private Ball[] myBalls;
@@ -10,13 +22,20 @@ public float score;
 public float scoreMultiplier = 1;
 public int indexPos = 3;
 private int ballIndex = 0;
+<<<<<<< HEAD
 //private int frontBall = 0;
+=======
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
 public int spawnPos;
 private boolean timeStarted;
 private int startTime;
 public int combo = 0;
 public int misscombo = 0;
+<<<<<<< HEAD
 public int scoreChange;
+=======
+public float trueSpawnInterval = 0.8571428571428571f;
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
 PFont font;
 
 void setup() {
@@ -32,12 +51,20 @@ void setup() {
 }
 
 /*void movieEvent(Movie m) {
+<<<<<<< HEAD
  m.read();
  }*/
 
 void draw() {
   ;
 
+=======
+  m.read();
+}*/
+
+void draw() {;
+                     
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
   background(135, 135, 135);
   //image(background,0,0);
   DrawBoard();
@@ -50,7 +77,11 @@ void draw() {
   BallSpawner();
   DrawBalls();
   ScoreCounter();
+<<<<<<< HEAD
   DrawAddedScore();
+=======
+
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
 }
 
 public void SpawnBall() {
@@ -62,10 +93,22 @@ public void SpawnBall() {
 }
 
 void keyPressed() {
+<<<<<<< HEAD
   if (key == ' ') {
     HitBall();
   }
 
+=======
+  if(key == ' '){
+    for(int i = 0; i < myBalls.length; i++){
+      if(myBalls[i].yPos == positions[indexPos]){
+        myBalls[i].Hit();
+        return;
+      }
+    }
+  }
+  
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
   if (keyCode == UP || keyCode == 'W') {
     if (indexPos == 0) {
       indexPos = 5;
@@ -103,7 +146,11 @@ public color CalcColor(int pos) {
   return color(255, 0, 0);
 }
 
+<<<<<<< HEAD
 void DrawBoard() {
+=======
+void DrawBoard(){
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
   line(110, 100, 110, height - 100);
   line(190, 100, 190, height - 100);
   line(0, 100, width, 100);
@@ -114,23 +161,37 @@ void DrawBoard() {
   line(0, 500, width, 500);
 }
 
+<<<<<<< HEAD
 void DrawBalls() {
   for (int i = 0; i < myBalls.length; i++) {
     if (myBalls[i] == null) return;
+=======
+void DrawBalls(){
+  for(int i = 0; i < myBalls.length; i++){
+    if(myBalls[i] == null) return;
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
     myBalls[i].draw();
   }
 }
 
+<<<<<<< HEAD
 void BallSpawner() {
   if (!timeStarted) startTime = millis(); 
   timeStarted = true;
 
   if (millis() > startTime + spawnInterval * 1000) {
+=======
+void BallSpawner(){
+  if(!timeStarted) startTime = millis(); timeStarted = true;
+  
+  if(millis() > startTime + trueSpawnInterval * 1000){
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
     SpawnBall();
     timeStarted = false;
   }
 }
 
+<<<<<<< HEAD
 void ScoreCounter() {
   score += 1 / frameRate * scoreMultiplier;
 }
@@ -159,3 +220,8 @@ public void DrawAddedScore() {
   fadeValue -= 8;
   
 }
+=======
+void ScoreCounter(){
+  score += 1 / frameRate * scoreMultiplier;
+}
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e

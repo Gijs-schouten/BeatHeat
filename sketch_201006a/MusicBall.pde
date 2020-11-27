@@ -20,9 +20,14 @@ class Ball {
   }
   
   void draw(){
+    spawnRate();
     Move();
     CheckPos();
     speed();
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
   }
   
   void Hit(){
@@ -51,7 +56,7 @@ class Ball {
   }
   
   void ScoreCalculate(){
-    
+  
     
     if(xPos >= ballLeftMin && xPos <= ballRightMin){
       AddScore(perfectScore);
@@ -63,7 +68,11 @@ class Ball {
     if(xPos > ballRightMin && xPos < ballRightMax){
       AddScore(minScore);
       System.out.println("te vroeg");
+<<<<<<< HEAD
       combo++;
+=======
+      combo ++;
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
       misscombo = 0;
     }
     
@@ -72,9 +81,70 @@ class Ball {
       System.out.println("te laat");
       combo = 0;
       misscombo ++;
+<<<<<<< HEAD
+=======
     }
   }
   
+  
+}
+
+
+void spawnRate(){
+  int timerStart = 0;
+
+  if(menuActive == true){
+   timerStart =+ millis();
+  }
+  
+  int intervalTimer = millis() - timerStart;
+  
+  if(intervalTimer > 5000){
+    if(intervalTimer < 9000){
+      trueSpawnInterval = spawnInterval[4];
+    }
+  
+  if(intervalTimer > 10000){
+    if(intervalTimer < 14000){
+     trueSpawnInterval = spawnInterval[1];
+  }
+    
+    
+  }
+ }
+  
+
+
+
+
+}
+
+
+
+void speed(){
+  
+  if(combo > 9){
+    if(musicSpeed < 1.1){
+      musicSpeed = musicSpeed + 0.02;
+       file.rate(musicSpeed);
+       combo = 0;
+       trueSpawnInterval *= 0.8;
+>>>>>>> 645de6808bf6d5be39aae2eb54c983e675959f1e
+    }
+    
+  }
+  
+  if(misscombo == 10){
+    if(musicSpeed > 0.9){
+      musicSpeed = musicSpeed - 0.02;
+       file.rate(musicSpeed);
+       misscombo = 0;
+       trueSpawnInterval *= 1.2;
+    }
+    
+    
+    
+  }
   
 }
 
