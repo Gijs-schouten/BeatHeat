@@ -48,7 +48,7 @@ void draw() {;
   textFont(font);
   text((int)score, 12, 60);
   fill(CalcColor(indexPos));
-  ellipse(150, positions[indexPos], 50, 50);
+  DrawPlayer();
   fill(CalcColor(spawnPos));
   BallSpawner();
   DrawBalls();
@@ -169,4 +169,8 @@ public void DrawAddedScore() {
   
   fadeValue -= 8;
   
+}
+
+public void DrawPlayer(){
+  ellipse(150, positions[indexPos], 50, 50);
 }
