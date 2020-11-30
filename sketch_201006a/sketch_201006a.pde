@@ -2,15 +2,9 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
-//Nummers van de spawnInterval zijn nu nog placeholders om het systeem werkend te krijgen die later kunnen worden aangepast om het stuk volledig werkend te krijgen.
-public float[] spawnInterval = new float[]{
-0.8571428571428571f,
-0.8571428571428571f,
-0.8571428571428571f,
-0.8571428571428571f,
-0.8571428571428571f
-};
 public boolean menuActive = false;
+public float comboCalc;
+public int totalCombo = 5;
 public SoundFile file;
 public float musicSpeed = 1;
 private Ball[] myBalls;
@@ -185,8 +179,9 @@ public void DrawAddedScore() {
     text("+" + scoreChange + " Perfect!", 70, 60);
   } else if(scoreChange == 3) {
     text("+" + scoreChange + " Good!", 70, 60);
-  } else {
+  } else if(scoreChange < 0) {
     text(scoreChange + " Miss...", 70, 60);
+    misscombo++;
   }
   
   fadeValue -= 8;

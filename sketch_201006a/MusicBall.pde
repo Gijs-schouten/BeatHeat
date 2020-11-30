@@ -24,7 +24,9 @@ class Ball {
     spawnRate();
     Move();
     CheckPos();
-    speed();
+    if(millis() >= 5000){
+     speed();
+   }
   }
 
   void Hit() {
@@ -74,7 +76,6 @@ class Ball {
       AddScore(minScore);
       System.out.println("te laat");
       combo = 0;
-      misscombo ++;
     }
   }
 }
@@ -82,7 +83,6 @@ class Ball {
 
 void spawnRate() {
   int timerStart = 0;
-
   if (menuActive == true) {
     timerStart =+ millis();
   }
@@ -92,11 +92,13 @@ void spawnRate() {
   if (intervalTimer > 5000) {
     if (intervalTimer < 9000) {
       trueSpawnInterval = spawnInterval[4];
+      comboCalc = spawnInterval[4];
     }
 
     if (intervalTimer > 10000) {
       if (intervalTimer < 14000) {
         trueSpawnInterval = spawnInterval[1];
+        comboCalc = spawnInterval[1];
       }
     }
   }
@@ -104,23 +106,96 @@ void spawnRate() {
 
 
 
+
 void speed() {
 
+
+
+  
   if (combo > 9) {
     if (musicSpeed < 1.1) {
+      totalCombo ++;
+      if(totalCombo == 0){
+        comboCalc *= comboChange[0];
+      }
+      if(totalCombo == 1){
+        comboCalc *= comboChange[1];
+      }
+      if(totalCombo == 2){
+        comboCalc *= comboChange[2];
+      }
+      if(totalCombo == 3){
+        comboCalc *= comboChange[3];
+      }
+      if(totalCombo == 4){
+        comboCalc *= comboChange[4];
+      }
+      if(totalCombo == 5){
+        comboCalc *= comboChange[5];
+      }
+      if(totalCombo == 6){
+        comboCalc *= comboChange[6];
+      }
+      if(totalCombo == 7){
+        comboCalc *= comboChange[7];
+      }
+      if(totalCombo == 8){
+        comboCalc *= comboChange[8];
+      }
+      if(totalCombo == 9){
+        comboCalc *= comboChange[9];
+      }
+      if(totalCombo == 10){
+        comboCalc *= comboChange[10];
+      }
       musicSpeed = musicSpeed + 0.02;
       file.rate(musicSpeed);
-      combo = 0;
-      trueSpawnInterval *= 0.8;
+      trueSpawnInterval = comboCalc;
+      combo = 0; 
     }
   }
 
-  if (misscombo == 10) {
+  if (misscombo == 75) {
     if (musicSpeed > 0.9) {
+      totalCombo -= 1; 
+      if(totalCombo == 0){
+         comboCalc *= comboChange[0];
+      }
+      if(totalCombo == 1){
+        comboCalc *= comboChange[1];
+      }
+      if(totalCombo == 2){
+        comboCalc *= comboChange[2];
+      }
+      if(totalCombo == 3){
+        comboCalc *= comboChange[3];
+      }
+      if(totalCombo == 4){
+        comboCalc *= comboChange[4];
+      }
+      if(totalCombo == 5){
+        comboCalc *= comboChange[5];
+      }
+      if(totalCombo == 6){
+        comboCalc *= comboChange[6];
+      }
+      if(totalCombo == 7){
+        comboCalc *= comboChange[7];
+      }
+      if(totalCombo == 8){
+        comboCalc *= comboChange[8];
+      }
+      if(totalCombo == 9){
+        comboCalc *= comboChange[9];
+      }
+      if(totalCombo == 10){
+        comboCalc = comboChange[10];
+      }
+       
       musicSpeed = musicSpeed - 0.02;
       file.rate(musicSpeed);
+      trueSpawnInterval = comboCalc;
       misscombo = 0;
-      trueSpawnInterval *= 1.2;
     }
   }
 }
