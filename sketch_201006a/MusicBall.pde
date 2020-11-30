@@ -16,8 +16,9 @@ class Ball {
 
   private void Move() {
     if (clicked) return;
-    ellipse(xPos -= _speed, yPos, 50, 50);
-  }
+  imageMode(CENTER);
+  image(Notes, xPos -= _speed, yPos, 45, 45);
+}
 
   void draw() {
     spawnRate();
@@ -59,6 +60,7 @@ class Ball {
       System.out.println("goed");
       combo += 2;
       misscombo = 0;
+      PlayEffect();
     } 
 
     if (xPos > ballRightMin && xPos < ballRightMax) {

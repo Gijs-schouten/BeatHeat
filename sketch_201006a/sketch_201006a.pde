@@ -1,5 +1,5 @@
 import processing.sound.*;
-import processing.video.*;
+//import processing.video.*;
 //Movie background;
 
 //Nummers van de spawnInterval zijn nu nog placeholders om het systeem werkend te krijgen die later kunnen worden aangepast om het stuk volledig werkend te krijgen.
@@ -27,6 +27,13 @@ public int misscombo = 0;
 public int scoreChange;
 public float trueSpawnInterval = 0.8571428571428571f;
 PFont font;
+PImage Player;
+PImage Background;
+PImage XboardLine;
+PImage YboardLine;
+PImage Notes;
+PImage FireEffect;
+
 
 void setup() {
   size(900, 600);
@@ -34,14 +41,20 @@ void setup() {
   //Movie background = new Movie(this, "vid.mp4");
   myBalls = new Ball[5];
   //background.play();
-  font = createFont("Arial", 32);
+  font = createFont("Streamster.ttf", 32);
   SpawnBall();
   file = new SoundFile(this, "UltimateDestruction.wav");
   file.loop();
+   Player = loadImage("Sprite2.PNG");
+   Background = loadImage("Background.png");
+   XboardLine = loadImage("Lines1.png");
+   YboardLine = loadImage("Lines2.png");
+   Notes = loadImage("Note1.PNG");
+   FireEffect = loadImage("Effect.gif");
 }
 
 void draw() {;
-  background(135, 135, 135);
+  background(Background);
   //image(background,0,0);
   DrawBoard();
   fill(255);
@@ -116,15 +129,24 @@ public color CalcColor(int pos) {
 }
 
 void DrawBoard() {
-  line(110, 100, 110, height - 100);
-  line(190, 100, 190, height - 100);
-  line(0, 100, width, 100);
-  line(0, 180, width, 180);
-  line(0, 260, width, 260);
-  line(0, 340, width, 340);
-  line(0, 420, width, 420);
-  line(0, 500, width, 500);
+  imageMode(CENTER);
+  image(XboardLine, 0, 100, 1900, 55);
+  imageMode(CENTER);
+  image(XboardLine, 0, 180, 1900, 55);
+  imageMode(CENTER);
+  image(XboardLine, 0, 260, 1900, 55);
+  imageMode(CENTER);
+  image(XboardLine, 0, 340, 1900, 55);
+  imageMode(CENTER);
+  image(XboardLine, 0, 420, 1900, 55);
+  imageMode(CENTER);
+  image(XboardLine, 0, 500, 1900, 55);
+  imageMode(CENTER);
+  image(YboardLine, 110, 300, 110, 530);
+  imageMode(CENTER);
+  image(YboardLine, 190, 300, 110, 530);
 }
+
 
 void DrawBalls(){
   for(int i = 0; i < myBalls.length; i++){
@@ -172,5 +194,11 @@ public void DrawAddedScore() {
 }
 
 public void DrawPlayer(){
-  ellipse(150, positions[indexPos], 50, 50);
+imageMode(CENTER);
+  image(Player, 150, positions[indexPos], 55, 55);
+}
+public void PlayEffect(){
+  
+
+
 }
