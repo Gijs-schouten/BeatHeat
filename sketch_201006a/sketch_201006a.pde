@@ -2,7 +2,7 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
-public boolean menuActive = false;
+public boolean menuActive = true;
 public float comboCalc;
 public int totalCombo = 5;
 public SoundFile file;
@@ -20,20 +20,23 @@ public int combo = 0;
 public int misscombo = 0;
 public int scoreChange;
 public float trueSpawnInterval = 0.8571428571428571f;
+private int screenState;
 PFont font;
-PImage Player,
- Background,
- XboardLine,
- YboardLine,
- Notes,
- FireEffect;
+PImage Player, 
+  Background, 
+  XboardLine, 
+  YboardLine, 
+  Notes, 
+  MainMenuBG, 
+  FireEffect;
 
 
 void setup() {
+  screenState = 0;
   size(900, 600);
   frameRate = 144;
   //Movie background = new Movie(this, "vid.mp4");
-  myBalls = new Ball[5];
+  myBalls = new Ball[ballAmount];
   //background.play();
   font = createFont("Streamster.ttf", 32);
   SpawnBall();
@@ -43,20 +46,19 @@ void setup() {
 }
 
 void draw() {
-  
-  background(Background);
-  //image(background,0,0);
-  DrawBoard();
-  fill(255);
-  textFont(font);
-  text((int)score, 12, 60);
-  fill(CalcColor(indexPos));
-  DrawPlayer();
-  fill(CalcColor(spawnPos));
-  BallSpawner();
-  DrawBalls();
-  ScoreCounter();
-  DrawAddedScore();
+  switch(screenState) {
+  case 0:
+    DrawMenu();
+    break;
+
+  case 1:
+    DrawGame();
+    break;
+
+  default:
+    println("screen state error");
+    break;
+  }
 }
 
 public void SpawnBall() {
@@ -64,22 +66,23 @@ public void SpawnBall() {
   myBalls[ballIndex] = new Ball(ballSpeed, positions[spawnPos]);
   myBalls[ballIndex].setup();
   ballIndex++;
-  ballIndex = ballIndex%5;
+  ballIndex = ballIndex%ballAmount;
 }
 
 void keyPressed() {
-  if (key == ' ') {
+ if(screenState == 1){ 
+  if (key == ' ' || key == 'c') {
     HitBall();
   }
 
-  if(key == ' '){
-    for(int i = 0; i < myBalls.length; i++){
-      if(myBalls[i].yPos == positions[indexPos]){
+  /*if (key == ' ' || key == 'c') {
+    for (int i = 0; i < myBalls.length; i++) {
+      if (myBalls[i].yPos == positions[indexPos]) {
         myBalls[i].Hit();
         return;
       }
     }
-  }
+  }*/
 
   if (keyCode == UP || keyCode == 'W') {
     if (indexPos == 0) {
@@ -91,6 +94,11 @@ void keyPressed() {
   if (keyCode == DOWN || keyCode == 'S') {
     indexPos++;
     indexPos = indexPos%5;
+  }
+ }
+  if (key == 'x' && screenState == 0) {
+    menuActive = false;
+    screenState++;
   }
 }
 
@@ -138,17 +146,18 @@ void DrawBoard() {
 }
 
 
-void DrawBalls(){
-  for(int i = 0; i < myBalls.length; i++){
-      if(myBalls[i] == null) return;
-      myBalls[i].draw();
-    }
+void DrawBalls() {
+  for (int i = 0; i < myBalls.length; i++) {
+    if (myBalls[i] == null) return;
+    myBalls[i].draw();
   }
+}
 
-void BallSpawner(){
-  if(!timeStarted) startTime = millis(); timeStarted = true;
-  
-  if(millis() > startTime + trueSpawnInterval * 1000){
+void BallSpawner() {
+  if (!timeStarted) startTime = millis(); 
+  timeStarted = true;
+
+  if (millis() > startTime + trueSpawnInterval * 1000) {
     SpawnBall();
     timeStarted = false;
   }
@@ -171,28 +180,74 @@ public int fadeValue;
 
 public void DrawAddedScore() {
   fill(255, 255, 255, fadeValue);
-  if(scoreChange >= perfectScore){
+  if (scoreChange >= perfectScore) {
     text("+" + scoreChange + " Perfect!", 70, 60);
-  } else if(scoreChange == 3) {
+  } else if (scoreChange == 3) {
     text("+" + scoreChange + " Good!", 70, 60);
-  } else if(scoreChange < 0) {
+  } else if (scoreChange < 0) {
     text(scoreChange + " Miss...", 70, 60);
     misscombo++;
   }
-  
+
   fadeValue -= 8;
-  
 }
 
-public void DrawPlayer(){
-imageMode(CENTER);
+public void DrawPlayer() {
+  imageMode(CENTER);
   image(Player, 150, positions[indexPos], 55, 55);
 }
-public void LoadImages(){
+public void LoadImages() {
   Player = loadImage("Sprite2.PNG");
-   Background = loadImage("Background.png");
-   XboardLine = loadImage("Lines1.png");
-   YboardLine = loadImage("Lines2.png");
-   Notes = loadImage("Note1.PNG");
-   FireEffect = loadImage("Effect.gif");
+  Background = loadImage("Background.png");
+  XboardLine = loadImage("Lines1.png");
+  YboardLine = loadImage("Lines2.png");
+  Notes = loadImage("Note1.PNG");
+  FireEffect = loadImage("Effect.gif");
+  MainMenuBG = loadImage("mainmenu.jpg");
+}
+
+private void DrawGame() {
+  fill(255,255,255,255);
+  tint(255,255);
+  background(Background);
+  //image(background,0,0);
+  DrawBoard();
+  
+  textFont(font);
+  text((int)score, 12, 60);
+  fill(CalcColor(indexPos));
+  DrawPlayer();
+  fill(CalcColor(spawnPos));
+  BallSpawner();
+  DrawBalls();
+  ScoreCounter();
+  DrawAddedScore();
+}
+
+private int textFade;
+boolean fading;
+
+private void FadeText() {
+  if (fading) {
+    textFade--;
+    if (textFade <= 0) fading = false;
+  } else {
+    textFade++;
+    if (textFade >= 100) fading = true;
+    println(textFade);
+  }
+}
+
+private void DrawMenu() {
+  tint(100, 75);
+  image(MainMenuBG, 0, 0);
+  textFont(font, 100);
+  text("Beat Heat", 50, 110);
+  textFont(font, 50);
+  fill(255, 255, 255, textFade);
+  text("Press 'x' to start!", 90, 300);
+  textFont(font, 35);
+  text("Press 'up' and 'down' to move", 90, 500);
+  text("Press 'space' or 'z' to hit", 90, 540);
+  FadeText();
 }
