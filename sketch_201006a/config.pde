@@ -35,3 +35,7 @@ public float[] comboChange = new float[]{
  1.08,
  1.1
 };
+
+public final int menuScreen = 0;
+public final int gameScreen = 1;
+public final int ballAmount = 7;

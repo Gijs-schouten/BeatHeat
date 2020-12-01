@@ -62,7 +62,6 @@ class Ball {
       System.out.println("goed");
       combo += 2;
       misscombo = 0;
-      PlayEffect();
     } 
 
     if (xPos > ballRightMin && xPos < ballRightMax) {
