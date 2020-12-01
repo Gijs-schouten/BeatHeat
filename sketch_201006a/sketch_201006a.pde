@@ -21,12 +21,12 @@ public int misscombo = 0;
 public int scoreChange;
 public float trueSpawnInterval = 0.8571428571428571f;
 PFont font;
-PImage Player;
-PImage Background;
-PImage XboardLine;
-PImage YboardLine;
-PImage Notes;
-PImage FireEffect;
+PImage Player,
+ Background,
+ XboardLine,
+ YboardLine,
+ Notes,
+ FireEffect;
 
 
 void setup() {
@@ -39,15 +39,11 @@ void setup() {
   SpawnBall();
   file = new SoundFile(this, "UltimateDestruction.wav");
   file.loop();
-   Player = loadImage("Sprite2.PNG");
-   Background = loadImage("Background.png");
-   XboardLine = loadImage("Lines1.png");
-   YboardLine = loadImage("Lines2.png");
-   Notes = loadImage("Note1.PNG");
-   FireEffect = loadImage("Effect.gif");
+  LoadImages();
 }
 
-void draw() {;
+void draw() {
+  
   background(Background);
   //image(background,0,0);
   DrawBoard();
@@ -192,8 +188,11 @@ public void DrawPlayer(){
 imageMode(CENTER);
   image(Player, 150, positions[indexPos], 55, 55);
 }
-public void PlayEffect(){
-  
-
-
+public void LoadImages(){
+  Player = loadImage("Sprite2.PNG");
+   Background = loadImage("Background.png");
+   XboardLine = loadImage("Lines1.png");
+   YboardLine = loadImage("Lines2.png");
+   Notes = loadImage("Note1.PNG");
+   FireEffect = loadImage("Effect.gif");
 }
