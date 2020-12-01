@@ -40,12 +40,14 @@ void setup() {
   //background.play();
   font = createFont("Streamster.ttf", 32);
   SpawnBall();
+  perfectHit = new SoundFile(this, "perfect_hit.wav");  normalHit = new SoundFile(this, "normal_hit.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
-  file.loop();
+  //file.loop();
   LoadImages();
 }
 
 void draw() {
+  music();
   switch(screenState) {
   case 0:
     DrawMenu();

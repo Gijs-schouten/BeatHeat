@@ -23,17 +23,17 @@ public float[] spawnInterval = new float[]{
 };
 
 public float[] comboChange = new float[]{
- 0.9,
- 0.92,
- 0.94,
- 0.96,
- 0.98,
- 1,
- 1.02,
- 1.04,
- 1.06,
- 1.08,
- 1.1
+  1.1,
+  1.08,
+  1.06,
+  1.04,
+  1.02,
+  1,
+  0.98,
+  0.96,
+  0.94,
+  0.92,
+  0.9
 };
 
 public final int menuScreen = 0;
