@@ -42,6 +42,7 @@ void setup() {
   SpawnBall();
   perfectHit = new SoundFile(this, "perfect_hit.wav");  normalHit = new SoundFile(this, "normal_hit.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
+  file.amp(0.9);
   //file.loop();
   LoadImages();
 }
