@@ -1,7 +1,7 @@
 class Ball {
   private float _speed;
   private float xPos;
-  private float yPos;
+  private float yPos = 0;
   private boolean clicked;
 
   Ball(float speed, float y) {
@@ -16,17 +16,17 @@ class Ball {
 
   private void Move() {
     if (clicked) return;
-  imageMode(CENTER);
-  image(Notes, xPos -= _speed, yPos, 45, 45);
-}
+    imageMode(CENTER);
+    image(Notes, xPos -= _speed, yPos, 45, 45);
+  }
 
   void draw() {
     spawnRate();
     Move();
     CheckPos();
-    if(millis() >= 5000){
-     speed();
-   }
+    if (millis() >= 5000) {
+      speed();
+    }
   }
 
   void Hit() {
@@ -69,8 +69,8 @@ class Ball {
       AddScore(minScore);
       System.out.println("te vroeg");
       normalHit();
-        combo++;
-        misscombo = 0;
+      combo++;
+      misscombo = 0;
     }
 
     if (xPos < ballLeftMin && xPos > ballLeftMax) {
@@ -112,28 +112,28 @@ void speed() {
 
 
 
-  
+
   if (combo > 9) {
     if (musicSpeed < 1.1) {
-      if(totalCombo < 10){
-       totalCombo ++;
+      if (totalCombo < 10) {
+        totalCombo ++;
       }
       comboCalc *= comboChange[totalCombo];
       musicSpeed = musicSpeed + 0.02;
       file.rate(musicSpeed);
       trueSpawnInterval = comboCalc;
-      combo = 0; 
+      combo = 0;
     }
   }
 
   if (misscombo == 75) {
-    if(totalCombo > 0){
-       totalCombo --;
+    if (totalCombo > 0) {
+      totalCombo --;
     }
-      comboCalc *= comboChange[totalCombo]; 
-      musicSpeed = musicSpeed - 0.02;
-      file.rate(musicSpeed);
-      trueSpawnInterval = comboCalc;
-      misscombo = 0;
-    }
+    comboCalc *= comboChange[totalCombo]; 
+    musicSpeed = musicSpeed - 0.02;
+    file.rate(musicSpeed);
+    trueSpawnInterval = comboCalc;
+    misscombo = 0;
   }
+}
