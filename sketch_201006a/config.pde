@@ -1,7 +1,7 @@
 public float ballRightMin = 160;
-public float ballRightMax = 200;
+public float ballRightMax = 180;
 public float ballLeftMin = 140;
-public float ballLeftMax = 90;
+public float ballLeftMax = 120;
 
 public float perfectScore = 5;
 public float minScore = 3;

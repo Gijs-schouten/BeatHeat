@@ -1,7 +1,7 @@
 class Ball {
   private float _speed;
   private float xPos;
-  private float yPos;
+  private float yPos = 0;
   private boolean clicked;
 
   Ball(float speed, float y) {
@@ -152,8 +152,6 @@ void spawnRate() {
 
 
 void speed() {
-
-
 
   if(trueSpawnInterval < 0.6){
    if (combo > 9) {

@@ -1,4 +1,5 @@
 import processing.sound.*;
+
 //import processing.video.*;
 //Movie background;
 
@@ -172,7 +173,10 @@ void ScoreCounter() {
 
 void HitBall() {
   for (int i = 0; i < myBalls.length; i++) {
-    if (myBalls[i].yPos == positions[indexPos] && myBalls[i].xPos < 300) {
+    if(myBalls[i] == null) return;
+    if (myBalls[i].yPos == positions[indexPos] 
+        && myBalls[i].xPos <= ballRightMax 
+        && myBalls[i].xPos >= ballLeftMax) {
       myBalls[i].Hit();
       return;
     }
@@ -242,9 +246,14 @@ private void FadeText() {
 }
 
 private void DrawMenu() {
-  tint(100, 75);
+
   image(MainMenuBG, 0, 0);
+  tint(100, 75);
+  textFont(font, 101);
+  fill(204, 0, 255, textFade / 2);
+  text("Beat Heat", 55, 110);
   textFont(font, 100);
+  fill(255, 255, 255, textFade * 2);
   text("Beat Heat", 50, 110);
   textFont(font, 50);
   fill(255, 255, 255, textFade);
