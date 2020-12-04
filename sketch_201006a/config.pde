@@ -15,10 +15,10 @@ public int[] positions = { 140, 220, 300, 380, 460 };
 
 //Nummers van de spawnInterval zijn nu nog placeholders om het systeem werkend te krijgen die later kunnen worden aangepast om het stuk volledig werkend te krijgen.
 public float[] spawnInterval = new float[]{
-0.8571428571428571f,
-0.8571428571428571f,
-0.8571428571428571f,
-0.8571428571428571f,
+1.3,
+100,
+0.8071428571428571f,
+0.9071428571428571f,
 0.8571428571428571f
 };
 
