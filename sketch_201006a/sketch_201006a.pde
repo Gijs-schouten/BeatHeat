@@ -22,6 +22,7 @@ public int misscombo = 0;
 public int scoreChange;
 public float trueSpawnInterval = 0.8571428571428571f;
 private int screenState;
+public int playerHealth = 10;
 PFont font;
 PImage Player, 
   Background, 
@@ -29,7 +30,9 @@ PImage Player,
   YboardLine, 
   Notes, 
   MainMenuBG, 
-  FireEffect;
+  FireEffect, 
+  Healthbar, 
+  BarOHealth;
 
 
 void setup() {
@@ -41,7 +44,8 @@ void setup() {
   //background.play();
   font = createFont("Streamster.ttf", 32);
   SpawnBall();
-  perfectHit = new SoundFile(this, "perfect_hit.wav");  normalHit = new SoundFile(this, "normal_hit.wav");
+  perfectHit = new SoundFile(this, "perfect_hit.wav");  
+  normalHit = new SoundFile(this, "normal_hit.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
   file.amp(0.9);
   //file.loop();
@@ -74,32 +78,32 @@ public void SpawnBall() {
 }
 
 void keyPressed() {
- if(screenState == 1){ 
-  if (key == ' ' || key == 'c') {
-    HitBall();
-  }
+  if (screenState == 1) { 
+    if (key == ' ' || key == 'c') {
+      HitBall();
+    }
 
-  /*if (key == ' ' || key == 'c') {
-    for (int i = 0; i < myBalls.length; i++) {
-      if (myBalls[i].yPos == positions[indexPos]) {
-        myBalls[i].Hit();
-        return;
+    /*if (key == ' ' || key == 'c') {
+     for (int i = 0; i < myBalls.length; i++) {
+     if (myBalls[i].yPos == positions[indexPos]) {
+     myBalls[i].Hit();
+     return;
+     }
+     }
+     }*/
+
+    if (keyCode == UP || keyCode == 'W') {
+      if (indexPos == 0) {
+        indexPos = 5;
       }
+      indexPos--;
     }
-  }*/
 
-  if (keyCode == UP || keyCode == 'W') {
-    if (indexPos == 0) {
-      indexPos = 5;
+    if (keyCode == DOWN || keyCode == 'S') {
+      indexPos++;
+      indexPos = indexPos%5;
     }
-    indexPos--;
   }
-
-  if (keyCode == DOWN || keyCode == 'S') {
-    indexPos++;
-    indexPos = indexPos%5;
-  }
- }
   if (key == 'x' && screenState == 0) {
     menuActive = false;
     screenState++;
@@ -173,10 +177,10 @@ void ScoreCounter() {
 
 void HitBall() {
   for (int i = 0; i < myBalls.length; i++) {
-    if(myBalls[i] == null) return;
+    if (myBalls[i] == null) return;
     if (myBalls[i].yPos == positions[indexPos] 
-        && myBalls[i].xPos <= ballRightMax 
-        && myBalls[i].xPos >= ballLeftMax) {
+      && myBalls[i].xPos <= ballRightMax 
+      && myBalls[i].xPos >= ballLeftMax) {
       myBalls[i].Hit();
       return;
     }
@@ -211,15 +215,17 @@ public void LoadImages() {
   Notes = loadImage("Note1.PNG");
   FireEffect = loadImage("Effect.gif");
   MainMenuBG = loadImage("mainmenu.jpg");
+  Healthbar = loadImage("Health Bar Border.png");
+  BarOHealth = loadImage("Health Bar.png");
 }
 
 private void DrawGame() {
-  fill(255,255,255,255);
-  tint(255,255);
+  fill(255, 255, 255, 255);
+  tint(255, 255);
   background(Background);
   //image(background,0,0);
   DrawBoard();
-  
+
   textFont(font);
   text((int)score, 12, 60);
   fill(CalcColor(indexPos));
@@ -229,6 +235,8 @@ private void DrawGame() {
   DrawBalls();
   ScoreCounter();
   DrawAddedScore();
+  image(BarOHealth, 470, 68, 40 * playerHealth, 40);
+  image(Healthbar, 470, 68, 400, 40);
 }
 
 private int textFade;
@@ -262,4 +270,10 @@ private void DrawMenu() {
   text("Press 'up' and 'down' to move", 90, 500);
   text("Press 'space' or 'z' to hit", 90, 540);
   FadeText();
+}
+public void AddHealth(int amount) {
+  playerHealth += amount;
+  if (playerHealth > 10) {
+    playerHealth = 10;
+  }
 }
