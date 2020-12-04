@@ -41,7 +41,8 @@ void setup() {
   //background.play();
   font = createFont("Streamster.ttf", 32);
   SpawnBall();
-  perfectHit = new SoundFile(this, "perfect_hit.wav");  normalHit = new SoundFile(this, "normal_hit.wav");
+  perfectHit = new SoundFile(this, "perfect_hit.wav");  
+  normalHit = new SoundFile(this, "normal_hit.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
   //file.loop();
   LoadImages();
@@ -73,33 +74,24 @@ public void SpawnBall() {
 }
 
 void keyPressed() {
- if(screenState == 1){ 
-  if (key == ' ' || key == 'c') {
-    HitBall();
-  }
+  if (screenState == 1) { 
+    if (key == ' ' || key == 'z' || key == 'Z') {
+      HitBall();
+    }
 
-  /*if (key == ' ' || key == 'c') {
-    for (int i = 0; i < myBalls.length; i++) {
-      if (myBalls[i].yPos == positions[indexPos]) {
-        myBalls[i].Hit();
-        return;
+    if (keyCode == UP || keyCode == 'W') {
+      if (indexPos == 0) {
+        indexPos = 5;
       }
+      indexPos--;
     }
-  }*/
 
-  if (keyCode == UP || keyCode == 'W') {
-    if (indexPos == 0) {
-      indexPos = 5;
+    if (keyCode == DOWN || keyCode == 'S') {
+      indexPos++;
+      indexPos = indexPos%5;
     }
-    indexPos--;
   }
-
-  if (keyCode == DOWN || keyCode == 'S') {
-    indexPos++;
-    indexPos = indexPos%5;
-  }
- }
-  if (key == 'x' && screenState == 0) {
+  if (key == 'x' || key == 'X' && screenState == 0) {
     menuActive = false;
     screenState++;
   }
@@ -151,8 +143,9 @@ void DrawBoard() {
 
 void DrawBalls() {
   for (int i = 0; i < myBalls.length; i++) {
-    if (myBalls[i] == null) return;
-    myBalls[i].draw();
+    if (myBalls[i] != null) {
+      myBalls[i].draw();
+    }
   }
 }
 
@@ -172,12 +165,12 @@ void ScoreCounter() {
 
 void HitBall() {
   for (int i = 0; i < myBalls.length; i++) {
-    if(myBalls[i] == null) return;
-    if (myBalls[i].yPos == positions[indexPos] 
-        && myBalls[i].xPos <= ballRightMax 
+    if (myBalls[i] != null && myBalls[i].yPos == positions[indexPos]) {
+      if (myBalls[i].xPos <= ballRightMax 
         && myBalls[i].xPos >= ballLeftMax) {
-      myBalls[i].Hit();
-      return;
+        myBalls[i].Hit();
+        return;
+      }
     }
   }
 }
@@ -213,12 +206,12 @@ public void LoadImages() {
 }
 
 private void DrawGame() {
-  fill(255,255,255,255);
-  tint(255,255);
+  fill(255, 255, 255, 255);
+  tint(255, 255);
   background(Background);
   //image(background,0,0);
   DrawBoard();
-  
+
   textFont(font);
   text((int)score, 12, 60);
   fill(CalcColor(indexPos));
@@ -256,7 +249,7 @@ private void DrawMenu() {
   text("Beat Heat", 50, 110);
   textFont(font, 50);
   fill(255, 255, 255, textFade);
-  text("Press 'x' to start!", 90, 300);
+  text("Press 'X' to start!", 90, 300);
   textFont(font, 35);
   text("Press 'up' and 'down' to move", 90, 500);
   text("Press 'space' or 'z' to hit", 90, 540);
