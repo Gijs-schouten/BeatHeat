@@ -93,7 +93,7 @@ void spawnRate() {
 
   if (intervalTimer < 30000 * comboChange[totalCombo]) {
       trueSpawnInterval = spawnInterval[0];
-      comboCalc = spawnInterval[0];
+      comboCalc = spawnInterval[50];
     }
 
     if (intervalTimer > 30000 * comboChange[totalCombo]) {
@@ -155,8 +155,8 @@ void speed() {
 
 
 
-
-  if (combo > 9) {
+  if(trueSpawnInterval < 0.6){
+   if (combo > 9) {
     if (musicSpeed < 1.1) {
       if (totalCombo < 10) {
         totalCombo ++;
@@ -167,6 +167,7 @@ void speed() {
       trueSpawnInterval = comboCalc;
       combo = 0;
     }
+  }
   }
 
   if (misscombo == 75) {
