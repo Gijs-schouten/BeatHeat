@@ -3,6 +3,7 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
+
 public int playerHealth = 10;
 public boolean menuActive = true;
 public float comboCalc;
@@ -36,7 +37,6 @@ PImage Player,
   BarOHealth, 
   gameOverScreen;
 
-
 void setup() {
   screenState = 0;
   size(900, 600);
@@ -48,6 +48,9 @@ void setup() {
   SpawnBall();
   perfectHit = new SoundFile(this, "perfect_hit.wav");  
   normalHit = new SoundFile(this, "normal_hit.wav");
+  menuMusic = new SoundFile(this, "MainMenu.wav");
+  menuMusic.amp(0.2);
+  gameOverTheme = new SoundFile(this, "GameOver.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
   file.amp(0.9);
   //file.loop();

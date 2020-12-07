@@ -1,6 +1,8 @@
 //Minim minim;
 SoundFile perfectHit;
 SoundFile normalHit;
+SoundFile menuMusic;
+SoundFile gameOverTheme;
 class Beat {
 
   
@@ -11,9 +13,20 @@ class Beat {
 }
 
 public void music(){
+  if(menuActive == true){
+    if(menuMusic.isPlaying() == false){
+      menuMusic.play();
+    }
+  }
   if(menuActive == false){
     if(file.isPlaying() == false){
+      menuMusic.stop();
      file.play();
+    }
+  }
+  if(screenState == 4 || screenState == 3){
+    if(gameOverTheme.isPlaying() == false){
+      gameOverTheme.play();
     }
   }
   
