@@ -3,6 +3,7 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
+public int playerHealth = 10;
 public boolean menuActive = true;
 public float comboCalc;
 public int totalCombo = 5;
@@ -30,11 +31,14 @@ PImage Player,
   Notes, 
   MainMenuBG, 
   HighScoreBG, 
-  FireEffect;
+  FireEffect, 
+  Healthbar, 
+  BarOHealth, 
+  gameOverScreen;
 
 
 void setup() {
-  screenState = 3;
+  screenState = 0;
   size(900, 600);
   frameRate = 144;
   //Movie background = new Movie(this, "vid.mp4");
@@ -63,11 +67,21 @@ void draw() {
 
   case 3:
     DrawHighScore();
+    file.stop();
     break;
+
+  case 4:
+    gameOver();
+    break;
+
+
 
   default:
     println("screen state error");
     break;
+  }
+  if (playerHealth == 0) {
+    screenState = 4;
   }
 }
 
@@ -102,6 +116,9 @@ void keyPressed() {
     screenState++;
   }
 }
+
+
+
 
 public color CalcColor(int pos) {
   switch (pos) {
@@ -210,7 +227,11 @@ public void LoadImages() {
   FireEffect = loadImage("Effect.gif");
   MainMenuBG = loadImage("mainmenu.jpg");
   HighScoreBG = loadImage("highscore.jpg");
+  Healthbar = loadImage("Health Bar Border.png");
+  BarOHealth = loadImage("Health Bar.png");
+  gameOverScreen = loadImage("GameOverScreen.jpg");
 }
+
 
 private void DrawGame() {
   fill(255, 255, 255, 255);
@@ -228,6 +249,9 @@ private void DrawGame() {
   DrawBalls();
   ScoreCounter();
   DrawAddedScore();
+
+  image(BarOHealth, 470, 68, 40 * playerHealth, 40);
+  image(Healthbar, 470, 68, 400, 40);
 }
 
 private int textFade = 0;
@@ -274,4 +298,11 @@ private void DrawHighScore() {
   fill(255, 255, 255, 60);
   text("High Scores", 55, 110);
   FadeText(80, 255);
+}
+
+public void AddHealth(int amount) {
+  playerHealth += amount;
+  if (playerHealth > 10) {
+    playerHealth = 10;
+  }
 }

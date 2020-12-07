@@ -43,8 +43,11 @@ class Ball {
 
   void CheckPos() {
     if (xPos < 50) {
-      if (!clicked) AddScore(missScore);
-      clicked = true;
+      if (!clicked) { 
+        AddScore(missScore);
+        AddHealth(-1);
+        clicked = true;
+      }
     }
   }
 
@@ -61,8 +64,8 @@ class Ball {
       perfectHit();
       combo += 2;
       misscombo = 0;
+     AddHealth(1);
     } 
-
     if (xPos >= ballRightMin && xPos <= ballRightMax) {
       AddScore(minScore);
       System.out.println("te vroeg");
@@ -91,7 +94,7 @@ void spawnRate() {
 
   if (intervalTimer < 30000 * comboChange[totalCombo]) {
     trueSpawnInterval = spawnInterval[0];
-    comboCalc = spawnInterval[50];
+    comboCalc = spawnInterval[0];
   }
 
   if (intervalTimer > 30000 * comboChange[totalCombo]) {
