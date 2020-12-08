@@ -3,6 +3,7 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
+public int playerHealth = 10;
 public boolean menuActive = true;
 public float comboCalc;
 public int totalCombo = 5;
@@ -30,9 +31,11 @@ PImage Player,
   YboardLine, 
   Notes, 
   MainMenuBG, 
+  HighScoreBG, 
   FireEffect, 
   Healthbar, 
-  BarOHealth;
+  BarOHealth, 
+  gameOverScreen;
 
 
 void setup() {
@@ -63,9 +66,23 @@ void draw() {
     DrawGame();
     break;
 
+  case 3:
+    DrawHighScore();
+    file.stop();
+    break;
+
+  case 4:
+    gameOver();
+    break;
+
+
+
   default:
     println("screen state error");
     break;
+  }
+  if (playerHealth == 0) {
+    screenState = 4;
   }
 }
 
@@ -79,18 +96,9 @@ public void SpawnBall() {
 
 void keyPressed() {
   if (screenState == 1) { 
-    if (key == ' ' || key == 'c') {
+    if (key == ' ' || key == 'z' || key == 'Z') {
       HitBall();
     }
-
-    /*if (key == ' ' || key == 'c') {
-     for (int i = 0; i < myBalls.length; i++) {
-     if (myBalls[i].yPos == positions[indexPos]) {
-     myBalls[i].Hit();
-     return;
-     }
-     }
-     }*/
 
     if (keyCode == UP || keyCode == 'W') {
       if (indexPos == 0) {
@@ -104,11 +112,15 @@ void keyPressed() {
       indexPos = indexPos%5;
     }
   }
-  if (key == 'x' && screenState == 0) {
+
+  if (key == 'x' || key == 'X' && screenState == 0) {
     menuActive = false;
     screenState++;
   }
 }
+
+
+
 
 public color CalcColor(int pos) {
   switch (pos) {
@@ -156,8 +168,9 @@ void DrawBoard() {
 
 void DrawBalls() {
   for (int i = 0; i < myBalls.length; i++) {
-    if (myBalls[i] == null) return;
-    myBalls[i].draw();
+    if (myBalls[i] != null) {
+      myBalls[i].draw();
+    }
   }
 }
 
@@ -177,12 +190,12 @@ void ScoreCounter() {
 
 void HitBall() {
   for (int i = 0; i < myBalls.length; i++) {
-    if (myBalls[i] == null) return;
-    if (myBalls[i].yPos == positions[indexPos] 
-      && myBalls[i].xPos <= ballRightMax 
-      && myBalls[i].xPos >= ballLeftMax) {
-      myBalls[i].Hit();
-      return;
+    if (myBalls[i] != null && myBalls[i].yPos == positions[indexPos]) {
+      if (myBalls[i].xPos <= ballRightMax 
+        && myBalls[i].xPos >= ballLeftMax) {
+        myBalls[i].Hit();
+        return;
+      }
     }
   }
 }
@@ -215,9 +228,12 @@ public void LoadImages() {
   Notes = loadImage("Note1.PNG");
   FireEffect = loadImage("Effect.gif");
   MainMenuBG = loadImage("mainmenu.jpg");
+  HighScoreBG = loadImage("highscore.jpg");
   Healthbar = loadImage("Health Bar Border.png");
   BarOHealth = loadImage("Health Bar.png");
+  gameOverScreen = loadImage("GameOverScreen.jpg");
 }
+
 
 private void DrawGame() {
   fill(255, 255, 255, 255);
@@ -239,16 +255,16 @@ private void DrawGame() {
   image(Healthbar, 470, 68, 400, 40);
 }
 
-private int textFade;
-boolean fading;
+private int textFade = 0;
+boolean fading = true;
 
-private void FadeText() {
+private void FadeText(int min, int max) {
   if (fading) {
     textFade--;
-    if (textFade <= 0) fading = false;
+    if (textFade <= min) fading = false;
   } else {
     textFade++;
-    if (textFade >= 100) fading = true;
+    if (textFade >= max) fading = true;
     println(textFade);
   }
 }
@@ -265,11 +281,31 @@ private void DrawMenu() {
   text("Beat Heat", 50, 110);
   textFont(font, 50);
   fill(255, 255, 255, textFade);
-  text("Press 'x' to start!", 90, 300);
+  text("Press 'X' to start!", 90, 300);
   textFont(font, 35);
   text("Press 'up' and 'down' to move", 90, 500);
   text("Press 'space' or 'z' to hit", 90, 540);
-  FadeText();
+  FadeText(0, 100);
+}
+
+private void DrawHighScore() {
+  textFont(font, 60);
+  tint(textFade, 50);
+  image(HighScoreBG, 0, 0);
+  HighScoreBG.resize(1280, 720);
+  fill(204, 0, 255, 30);
+  text("High Scores", 58, 110);
+  textFont(font, 60);
+  fill(255, 255, 255, 60);
+  text("High Scores", 55, 110);
+  FadeText(80, 255);
+}
+
+public void AddHealth(int amount) {
+  playerHealth += amount;
+  if (playerHealth > 10) {
+    playerHealth = 10;
+  }
 }
 public void AddHealth(int amount) {
   playerHealth += amount;

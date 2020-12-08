@@ -1,8 +1,8 @@
 class Ball {
   private float _speed;
   private float xPos;
-  private float yPos = 0;
-  private boolean clicked;
+  private float yPos;
+  public boolean clicked;
 
   Ball(float speed, float y) {
     _speed = speed;
@@ -11,7 +11,6 @@ class Ball {
 
   void setup() {
     xPos = 900;
-    //yPos = 300;
   }
 
   private void Move() {
@@ -30,13 +29,14 @@ class Ball {
   }
 
   void Hit() {
-    System.out.println(yPos);
+    if (clicked) return;
+
     clicked = true;
-    if (xPos > ballRightMax) {
-      System.out.println("veel te vroeg");
-      AddScore(missScore);
-      return;
-    }
+    /*if (xPos > ballRightMax) {
+     System.out.println("veel te vroeg");
+     AddScore(missScore);
+     return;
+     }*/
 
     ScoreCalculate();
   }
@@ -58,8 +58,6 @@ class Ball {
   }
 
   void ScoreCalculate() {
-
-
     if (xPos >= ballLeftMin && xPos <= ballRightMin) {
       AddScore(perfectScore);
       System.out.println("goed");
@@ -68,8 +66,7 @@ class Ball {
       misscombo = 0;
      AddHealth(1);
     } 
-
-    if (xPos > ballRightMin && xPos < ballRightMax) {
+    if (xPos >= ballRightMin && xPos <= ballRightMax) {
       AddScore(minScore);
       System.out.println("te vroeg");
       normalHit();
@@ -77,7 +74,7 @@ class Ball {
       misscombo = 0;
     }
 
-    if (xPos < ballLeftMin && xPos > ballLeftMax) {
+    if (xPos <= ballLeftMin && xPos >= ballLeftMax) {
       AddScore(minScore);
       System.out.println("te laat");
       combo = 0;
@@ -146,10 +143,6 @@ void spawnRate() {
     }
   }
 }
-
-
-
-
 
 void speed() {
 
