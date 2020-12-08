@@ -23,6 +23,7 @@ public int misscombo = 0;
 public int scoreChange;
 public float trueSpawnInterval = 0.8571428571428571f;
 private int screenState;
+public int playerHealth = 10;
 PFont font;
 PImage Player, 
   Background, 
@@ -111,6 +112,7 @@ void keyPressed() {
       indexPos = indexPos%5;
     }
   }
+
   if (key == 'x' || key == 'X' && screenState == 0) {
     menuActive = false;
     screenState++;
@@ -249,7 +251,6 @@ private void DrawGame() {
   DrawBalls();
   ScoreCounter();
   DrawAddedScore();
-
   image(BarOHealth, 470, 68, 40 * playerHealth, 40);
   image(Healthbar, 470, 68, 400, 40);
 }
@@ -300,6 +301,12 @@ private void DrawHighScore() {
   FadeText(80, 255);
 }
 
+public void AddHealth(int amount) {
+  playerHealth += amount;
+  if (playerHealth > 10) {
+    playerHealth = 10;
+  }
+}
 public void AddHealth(int amount) {
   playerHealth += amount;
   if (playerHealth > 10) {
