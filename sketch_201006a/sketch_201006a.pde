@@ -3,7 +3,7 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
-
+public int timerReset = 0;
 public int playerHealth = 10;
 public boolean menuActive = true;
 public float comboCalc;
@@ -24,9 +24,13 @@ public int misscombo = 0;
 public int scoreChange;
 public float trueSpawnInterval = 0.8571428571428571f;
 private int screenState;
+public boolean powerUpActive = false;
+public boolean comboPowerUp = false;
+public boolean rowPowerUp = false;
+public boolean scorePowerUp = false;
 PFont font;
-PImage Player, 
-  Background, 
+PImage Player;
+PImage Background, 
   XboardLine, 
   YboardLine, 
   Notes, 
@@ -70,7 +74,6 @@ void draw() {
 
   case 3:
     DrawHighScore();
-    file.stop();
     break;
 
   case 4:
@@ -90,6 +93,9 @@ void draw() {
 
 public void SpawnBall() {
   spawnPos = int(random(0, 5));
+  if(rowPowerUp){
+    spawnPos = 2; 
+  }
   myBalls[ballIndex] = new Ball(ballSpeed, positions[spawnPos]);
   myBalls[ballIndex].setup();
   ballIndex++;
@@ -220,6 +226,15 @@ public void DrawAddedScore() {
 public void DrawPlayer() {
   imageMode(CENTER);
   image(Player, 150, positions[indexPos], 55, 55);
+  if (powerUpActive == true) {
+    tint(253, 0, 77);
+    image(Player, 150, positions[indexPos], 55, 55);
+    noTint();
+  }
+  if(powerUpActive == false){
+   noTint(); 
+   image(Player, 150, positions[indexPos], 55, 55);
+  }
 }
 public void LoadImages() {
   Player = loadImage("Sprite2.PNG");
@@ -242,6 +257,8 @@ private void DrawGame() {
   background(Background);
   //image(background,0,0);
   DrawBoard();
+  
+  powerUpActivator();
 
   textFont(font);
   text((int)score, 12, 60);
@@ -255,6 +272,7 @@ private void DrawGame() {
 
   image(BarOHealth, 470, 68, 40 * playerHealth, 40);
   image(Healthbar, 470, 68, 400, 40);
+ 
 }
 
 private int textFade = 0;
@@ -293,7 +311,8 @@ private void DrawMenu() {
 private void DrawHighScore() {
   textFont(font, 60);
   tint(textFade, 50);
-  image(HighScoreBG, 0, 0);
+  imageMode(CENTER);
+  image(HighScoreBG, 450, 300, 900, 600);
   HighScoreBG.resize(1280, 720);
   fill(204, 0, 255, 30);
   text("High Scores", 58, 110);

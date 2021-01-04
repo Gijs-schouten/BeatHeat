@@ -58,26 +58,37 @@ class Ball {
   }
 
   void ScoreCalculate() {
-    if (xPos >= ballLeftMin && xPos <= ballRightMin) {
+    if (xPos >= ballLeftMin && xPos <= ballRightMin || comboPowerUp == true) {
       AddScore(perfectScore);
       System.out.println("goed");
       perfectHit();
       combo += 2;
       misscombo = 0;
-     AddHealth(1);
+      AddHealth(1);
+      if(scorePowerUp == true){
+        AddScore(perfectScore);
+      }
     } 
     if (xPos >= ballRightMin && xPos <= ballRightMax) {
-      AddScore(minScore);
-      System.out.println("te vroeg");
-      normalHit();
-      combo++;
-      misscombo = 0;
+      if (comboPowerUp == false) {
+        AddScore(minScore);
+        System.out.println("te vroeg");
+        normalHit();
+        combo++;
+        misscombo = 0;
+      }
+      if (scorePowerUp == true) {
+        AddScore(minScore);
+      }
     }
 
     if (xPos <= ballLeftMin && xPos >= ballLeftMax) {
-      AddScore(minScore);
-      System.out.println("te laat");
-      combo = 0;
+      if (comboPowerUp == false) {
+        AddScore(minScore);
+        System.out.println("te laat");
+        combo = 0;
+        
+      }
     }
   }
 }
@@ -90,7 +101,6 @@ void spawnRate() {
   }
 
   int intervalTimer = millis() - timerStart;
-  int timerReset = 0;
 
   if (intervalTimer < 30000 * comboChange[totalCombo]) {
     trueSpawnInterval = spawnInterval[0];
@@ -151,6 +161,13 @@ void speed() {
       if (musicSpeed < 1.1) {
         if (totalCombo < 10) {
           totalCombo ++;
+        }
+        if (comboPowerUp == true) {
+          if (totalCombo != 10) {
+            tempCombo = totalCombo;
+          }
+          totalCombo = 10;
+          misscombo = 0;
         }
         comboCalc *= comboChange[totalCombo];
         musicSpeed = musicSpeed + 0.02;
