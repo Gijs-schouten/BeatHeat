@@ -58,32 +58,32 @@ class Ball {
   }
 
   void ScoreCalculate() {
-    if (xPos >= ballLeftMin && xPos <= ballRightMin || comboPowerUp == true) {
+    if (xPos >= ballLeftMin && xPos <= ballRightMin || comboPowerUp) {
       AddScore(perfectScore);
       System.out.println("goed");
       perfectHit();
       combo += 2;
       misscombo = 0;
       AddHealth(1);
-      if(scorePowerUp == true){
+      if(scorePowerUp){
         AddScore(perfectScore);
       }
     } 
     if (xPos >= ballRightMin && xPos <= ballRightMax) {
-      if (comboPowerUp == false) {
+      if (!comboPowerUp) {
         AddScore(minScore);
         System.out.println("te vroeg");
         normalHit();
         combo++;
         misscombo = 0;
       }
-      if (scorePowerUp == true) {
+      if (scorePowerUp) {
         AddScore(minScore);
       }
     }
 
     if (xPos <= ballLeftMin && xPos >= ballLeftMax) {
-      if (comboPowerUp == false) {
+      if (!comboPowerUp) {
         AddScore(minScore);
         System.out.println("te laat");
         combo = 0;
@@ -162,7 +162,7 @@ void speed() {
         if (totalCombo < 10) {
           totalCombo ++;
         }
-        if (comboPowerUp == true) {
+        if (comboPowerUp) {
           if (totalCombo != 10) {
             tempCombo = totalCombo;
           }

@@ -226,12 +226,12 @@ public void DrawAddedScore() {
 public void DrawPlayer() {
   imageMode(CENTER);
   image(Player, 150, positions[indexPos], 55, 55);
-  if (powerUpActive == true) {
+  if (powerUpActive) {
     tint(253, 0, 77);
     image(Player, 150, positions[indexPos], 55, 55);
     noTint();
   }
-  if(powerUpActive == false){
+  if(!powerUpActive){
    noTint(); 
    image(Player, 150, positions[indexPos], 55, 55);
   }

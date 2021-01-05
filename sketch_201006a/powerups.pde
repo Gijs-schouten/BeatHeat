@@ -72,13 +72,13 @@ void powerUpActivator() {
   }
 
 
-  if (powerUpActive == false) {
+  if (!powerUpActive) {
     powerUpTimerStart = millis();
     comboPowerUp = false;
     rowPowerUp = false;
     scorePowerUp = false;
   }
-  if (menuActive == true) {
+  if (menuActive) {
     menuTime += millis();
   }
   
@@ -87,7 +87,7 @@ void powerUpActivator() {
 
 
   if (powerUpActivationTimer >= 20000 + powerUpDelayer) {
-    if (powerUpActive == false) {
+    if (!powerUpActive) {
       totalPowerUpTime = millis() - powerUpActivationTimer;
       //wordt verplaats met random nummer tussen 1 en 3 wanneer andere powerups erin staan.
       powerUpDecider = int(random(1, 3));
@@ -109,7 +109,7 @@ void powerUpActivator() {
     scorePowerUp = true;
   }
 
-  if (powerUpActive == true) {
+  if (powerUpActive) {
     powerUpDuration = millis() - powerUpTimerStart;
     powerUpTimerReset = millis() - menuTime;
   }
