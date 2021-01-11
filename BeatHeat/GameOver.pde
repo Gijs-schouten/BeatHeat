@@ -1,4 +1,4 @@
-//Dit script gaat in het algemeen over het doodgaan en bijna doodzijn
+//Hier staat de code die ervoor zorgt dat als levens 0 raken het spel eindigt.
 public void gameOver() {
   imageMode(CENTER);
   image(gameOverScreen, 450, 300, 900, 600);

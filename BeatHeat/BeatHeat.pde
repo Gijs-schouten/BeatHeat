@@ -3,26 +3,7 @@ import processing.sound.*;
 //import processing.video.*;
 //Movie background;
 
-public int playerHealth = 10;
-public boolean menuActive = true;
-public float comboCalc;
-public int totalCombo = 5;
-public SoundFile file;
-public float musicSpeed = 1;
-private Ball[] myBalls;
-public float score;
-public float scoreMultiplier = 1;
-public int indexPos = 3;
-private int ballIndex = 0;
-//private int frontBall = 0;
-public int spawnPos;
-private boolean timeStarted;
-private int startTime;
-public int combo = 0;
-public int misscombo = 0;
-public int scoreChange;
-public float trueSpawnInterval = 0.8571428571428571f;
-private int screenState;
+
 PFont font;
 PImage Player, 
   Background, 
@@ -87,6 +68,9 @@ void draw() {
 
 public void SpawnBall() {
   spawnPos = int(random(0, 4));
+  if(rowPowerUp){
+    spawnPos = 2; 
+  }
   myBalls[ballIndex] = new Ball(ballSpeed, positions[spawnPos]);
   myBalls[ballIndex].setup();
   ballIndex++;
@@ -218,7 +202,17 @@ public void DrawAddedScore() {
 public void DrawPlayer() {
   imageMode(CENTER);
   image(Player, 150, positions[indexPos], 55, 55);
+  if (powerUpActive) {
+    tint(253, 0, 77);
+    image(Player, 150, positions[indexPos], 55, 55);
+    noTint();
+  }
+  if(!powerUpActive){
+   noTint(); 
+   image(Player, 150, positions[indexPos], 55, 55);
+  }
 }
+
 public void LoadImages() {
   Player = loadImage("Sprite2.PNG");
   Background = loadImage("Background.png");
@@ -240,6 +234,8 @@ private void DrawGame() {
   background(Background);
   //image(background,0,0);
   DrawBoard();
+  
+  powerUpActivator();
 
   textFont(font);
   text((int)score, 12, 60);
