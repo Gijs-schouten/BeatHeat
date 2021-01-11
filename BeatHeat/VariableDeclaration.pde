@@ -1,5 +1,5 @@
 //Hier worden variabelen die nog worden aangepast gedeclareerd.
-public int playerHealth = 10;
+public float playerHealth = floor(10.0);
 public boolean menuActive = true;
 public float comboCalc;
 public int totalCombo = 5;
@@ -35,3 +35,6 @@ public int tempCombo = 10;
 public int timerStart = 0;
 public int intervalTimer = millis() - timerStart;
 public int timerReset = 0;
+public boolean particleActive = false;
+public int particleTimer = 0;
+public int particleTimerCheck = 0;
