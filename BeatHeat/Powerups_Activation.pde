@@ -1,3 +1,4 @@
+//Hier staat de code die powerups activeert.
 void powerUpActivator() {
     
     

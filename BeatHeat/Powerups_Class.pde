@@ -1,3 +1,4 @@
+//Hier staat de powerup class die de speler laat weten welke powerup actief is.
 PowerUp powerUpCombo = new PowerUp(1);
 PowerUp powerUpOneRow = new PowerUp(2);
 PowerUp powerUpDoubleScore = new PowerUp(3);

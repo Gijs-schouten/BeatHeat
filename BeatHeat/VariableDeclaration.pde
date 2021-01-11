@@ -1,3 +1,4 @@
+//Hier worden variabelen die nog worden aangepast gedeclareerd.
 public int playerHealth = 10;
 public boolean menuActive = true;
 public float comboCalc;

@@ -1,3 +1,4 @@
+//Deze code berekent hoe snel je bent op basis van je code.
 void comboSpeed() {
 
   if (trueSpawnInterval < 0.6) {
