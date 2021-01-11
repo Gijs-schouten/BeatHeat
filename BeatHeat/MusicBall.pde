@@ -3,6 +3,9 @@ class Ball {
   private float xPos;
   private float yPos;
   public boolean clicked;
+  public boolean isEnemy = false;
+  public float enemyChance;
+  public PImage NoteSprite;
 
   Ball(float speed, float y) {
     _speed = speed;
@@ -11,12 +14,13 @@ class Ball {
 
   void setup() {
     xPos = 900;
+    enemyChanceSetup();
   }
 
   private void Move() {
     if (clicked) return;
     imageMode(CENTER);
-    image(Notes, xPos -= _speed, yPos, 45, 45);
+    image(NoteSprite, xPos -= _speed, yPos, 45, 45);
   }
 
   void draw() {
@@ -25,6 +29,16 @@ class Ball {
     CheckPos();
     if (millis() >= 5000) {
       comboSpeed();
+    }
+    if (!particleActive) {
+      particleTimerCheck = millis();
+    }
+    if (particleActive) particleTimer = millis() - particleTimerCheck;
+    if (particleTimer >= 900) {
+      particleActive = false;
+    }
+    if (particleActive) {
+      particlePlay();
     }
   }
 
@@ -43,7 +57,7 @@ class Ball {
 
   void CheckPos() {
     if (xPos < 50) {
-      if (!clicked) { 
+      if (!clicked && !isEnemy) { 
         AddScore(missScore);
         AddHealth(-1);
         clicked = true;
@@ -58,6 +72,11 @@ class Ball {
   }
 
   void ScoreCalculate() {
+    if (isEnemy) {
+      AddScore(missScore);
+      AddHealth(-4);
+      return;
+    }
     if (xPos >= ballLeftMin && xPos <= ballRightMin || comboPowerUp) {
       AddScore(perfectScore);
       System.out.println("goed");
@@ -65,7 +84,8 @@ class Ball {
       combo += 2;
       misscombo = 0;
       AddHealth(1);
-      if(scorePowerUp){
+      particleActive = true;
+      if (scorePowerUp) {
         AddScore(perfectScore);
       }
     } 
@@ -87,8 +107,16 @@ class Ball {
         AddScore(minScore);
         System.out.println("te laat");
         combo = 0;
-        
       }
+    }
+  }
+  void enemyChanceSetup() {
+    enemyChance = random(10);
+    if (enemyChance > 7) {
+      isEnemy = true;
+      NoteSprite = EvilNotes;
+    } else { 
+      NoteSprite = Notes;
     }
   }
 }

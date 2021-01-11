@@ -1,9 +1,6 @@
 import processing.sound.*;
 
-//import processing.video.*;
-//Movie background;
-
-
+ParticleSystem ps;
 PFont font;
 PImage Player, 
   Background, 
@@ -15,24 +12,24 @@ PImage Player,
   FireEffect, 
   Healthbar, 
   BarOHealth, 
-  gameOverScreen;
+  gameOverScreen,
+  EvilNotes;
 
 
 void setup() {
+  ps = new ParticleSystem(new PVector(145, 60));
   screenState = 0;
   size(900, 600);
   frameRate = 144;
-  //Movie background = new Movie(this, "vid.mp4");
+  LoadImages();
   myBalls = new Ball[ballAmount];
-  //background.play();
   font = createFont("Streamster.ttf", 32);
   SpawnBall();
   perfectHit = new SoundFile(this, "perfect_hit.wav");  
   normalHit = new SoundFile(this, "normal_hit.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
   file.amp(0.9);
-  //file.loop();
-  LoadImages();
+  
 }
 
 void draw() {
@@ -68,8 +65,8 @@ void draw() {
 
 public void SpawnBall() {
   spawnPos = int(random(0, 4));
-  if(rowPowerUp){
-    spawnPos = 2; 
+  if (rowPowerUp) {
+    spawnPos = 2;
   }
   myBalls[ballIndex] = new Ball(ballSpeed, positions[spawnPos]);
   myBalls[ballIndex].setup();
@@ -207,9 +204,9 @@ public void DrawPlayer() {
     image(Player, 150, positions[indexPos], 55, 55);
     noTint();
   }
-  if(!powerUpActive){
-   noTint(); 
-   image(Player, 150, positions[indexPos], 55, 55);
+  if (!powerUpActive) {
+    noTint(); 
+    image(Player, 150, positions[indexPos], 55, 55);
   }
 }
 
@@ -225,6 +222,7 @@ public void LoadImages() {
   Healthbar = loadImage("Health Bar Border.png");
   BarOHealth = loadImage("Health Bar.png");
   gameOverScreen = loadImage("GameOverScreen.jpg");
+  EvilNotes = loadImage("EvilNote.PNG");
 }
 
 
@@ -234,7 +232,7 @@ private void DrawGame() {
   background(Background);
   //image(background,0,0);
   DrawBoard();
-  
+
   powerUpActivator();
 
   textFont(font);
@@ -296,9 +294,13 @@ private void DrawHighScore() {
   FadeText(80, 255);
 }
 
-public void AddHealth(int amount) {
+public void AddHealth(float amount) {
   playerHealth += amount;
   if (playerHealth > 10) {
     playerHealth = 10;
   }
+}
+public void particlePlay() {
+  ps.addParticle();
+  ps.run();
 }
