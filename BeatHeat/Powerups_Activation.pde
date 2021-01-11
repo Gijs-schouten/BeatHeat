@@ -1,7 +1,7 @@
 //Hier staat de code die powerups activeert.
 void powerUpActivator() {
-    
-    
+
+
   if (powerUpDecider == 1 || powerUpDecider == 2 || powerUpDecider == 3) {
     powerUpActive = true;
   } else {
@@ -18,8 +18,8 @@ void powerUpActivator() {
   if (menuActive) {
     menuTime += millis();
   }
-  
-  
+
+
   powerUpActivationTimer = millis() - menuTime - totalPowerUpTime - powerUpTimerReset;
 
 
@@ -36,12 +36,12 @@ void powerUpActivator() {
     powerUpCombo.draw();
     comboPowerUp = true;
   }
-  if(powerUpDecider == 2){
+  if (powerUpDecider == 2) {
     powerUpOneRow.draw();
     rowPowerUp = true;
   }
-  
-  if(powerUpDecider == 3){
+
+  if (powerUpDecider == 3) {
     powerUpDoubleScore.draw();
     scorePowerUp = true;
   }

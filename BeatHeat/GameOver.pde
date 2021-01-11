@@ -13,8 +13,8 @@ public void gameOver() {
     exit();
   }
 
-  if (key == 'h' || key == 'H'){
-   playerHealth = 10;
-   screenState = 3;
+  if (key == 'h' || key == 'H') {
+    playerHealth = 10;
+    screenState = 3;
   }
 }

@@ -5,7 +5,7 @@ PowerUp powerUpDoubleScore = new PowerUp(3);
 
 class PowerUp {
 
-int powerUpType;
+  int powerUpType;
 
 
   PowerUp(int tempPowerUpType) {
@@ -22,10 +22,10 @@ int powerUpType;
     if (powerUpType == 1) {
       comboBoost();
     }
-    if(powerUpType == 2){
-     rowBoost(); 
+    if (powerUpType == 2) {
+      rowBoost();
     }
-    if(powerUpType == 3){
+    if (powerUpType == 3) {
       scoreBoost();
     }
   }
@@ -36,18 +36,18 @@ int powerUpType;
     textSize(30);
     text("Perfect Combo Boost!", 320, 570);
   }
-  
-  void rowBoost(){
-    
-    
+
+  void rowBoost() {
+
+
     textFont(font, 100);
     textSize(30);
     text("One Row Boost!", 320, 570);
   }
-  
-  void scoreBoost(){
-    
-    
+
+  void scoreBoost() {
+
+
     textFont(font, 100);
     textSize(30);
     text("Double Score Boost!", 320, 570);

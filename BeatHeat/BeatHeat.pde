@@ -12,7 +12,7 @@ PImage Player,
   FireEffect, 
   Healthbar, 
   BarOHealth, 
-  gameOverScreen,
+  gameOverScreen, 
   EvilNotes;
 
 
@@ -29,9 +29,9 @@ void setup() {
   normalHit = new SoundFile(this, "normal_hit.wav");
   file = new SoundFile(this, "UltimateDestruction.wav");
   file.amp(0.9);
-  
 }
 
+//Drawt het juiste scherm naarmate de screenState 
 void draw() {
   music();
   switch(screenState) {
@@ -52,17 +52,17 @@ void draw() {
     gameOver();
     break;
 
-
-
   default:
     println("screen state error");
     break;
   }
+  
   if (playerHealth == 0) {
     screenState = 4;
   }
 }
 
+//Spawnt een ball met een random positie
 public void SpawnBall() {
   spawnPos = int(random(0, 4));
   if (rowPowerUp) {
@@ -70,6 +70,8 @@ public void SpawnBall() {
   }
   myBalls[ballIndex] = new Ball(ballSpeed, positions[spawnPos]);
   myBalls[ballIndex].setup();
+  
+  //Houdt bij welke ball welke is en reset wanneer hij buiten zijn max komt.
   ballIndex++;
   ballIndex = ballIndex%ballAmount;
 }
@@ -99,33 +101,7 @@ void keyPressed() {
   }
 }
 
-
-
-
-public color CalcColor(int pos) {
-  switch (pos) {
-  case 0:
-    return color(255, 0, 0);
-
-  case 1:
-    return color(0, 255, 0);
-
-  case 2:
-    return color(0, 0, 255);
-
-  case 3:
-    return color(255, 255, 0);
-
-  case 4:
-    return color(0, 255, 255);
-
-  case 5:
-    return color(255, 0, 255);
-  }
-
-  return color(255, 0, 0);
-}
-
+//Tekent het game board
 void DrawBoard() {
   imageMode(CENTER);
   image(XboardLine, 0, 100, 1900, 55);
@@ -145,7 +121,7 @@ void DrawBoard() {
   image(YboardLine, 190, 300, 110, 530);
 }
 
-
+//Tekent de ballen
 void DrawBalls() {
   for (int i = 0; i < myBalls.length; i++) {
     if (myBalls[i] != null) {
@@ -154,6 +130,7 @@ void DrawBalls() {
   }
 }
 
+//Blijft ballen spawnen met een interval. Spawnsnelheid past aan naarmate combo
 void BallSpawner() {
   if (!timeStarted) startTime = millis(); 
   timeStarted = true;
@@ -164,10 +141,12 @@ void BallSpawner() {
   }
 }
 
+//Voegt score toe
 void ScoreCounter() {
   score += 1 / frameRate * scoreMultiplier;
 }
 
+//Functie wanneer de speler om spatie klikt. Gaat elke ball af of deze geraakt kan worden.
 void HitBall() {  
   for (int i = 0; i < myBalls.length; i++) {
     if (myBalls[i] != null && myBalls[i].yPos == positions[indexPos]) {
@@ -180,8 +159,7 @@ void HitBall() {
   }
 }
 
-public int fadeValue;
-
+//Functie die de toegevoegde en afgehaalde score laat zien op het scherm.
 public void DrawAddedScore() {
   fill(255, 255, 255, fadeValue);
   if (scoreChange >= perfectScore) {
@@ -196,6 +174,7 @@ public void DrawAddedScore() {
   fadeValue -= 8;
 }
 
+//Tekent de speler.
 public void DrawPlayer() {
   imageMode(CENTER);
   image(Player, 150, positions[indexPos], 55, 55);
@@ -210,6 +189,7 @@ public void DrawPlayer() {
   }
 }
 
+//Functie die benodigde images laad.
 public void LoadImages() {
   Player = loadImage("Sprite2.PNG");
   Background = loadImage("Background.png");
@@ -225,7 +205,7 @@ public void LoadImages() {
   EvilNotes = loadImage("EvilNote.PNG");
 }
 
-
+//Functie die het spel tekent.
 private void DrawGame() {
   fill(255, 255, 255, 255);
   tint(255, 255);
@@ -251,6 +231,7 @@ private void DrawGame() {
 private int textFade = 0;
 boolean fading = true;
 
+//Functie voor de main menu text te laten faden.
 private void FadeText(int min, int max) {
   if (fading) {
     textFade--;
@@ -262,6 +243,7 @@ private void FadeText(int min, int max) {
   }
 }
 
+//Functie voor het tekenen van het hoofd menu
 private void DrawMenu() {
 
   image(MainMenuBG, 0, 0);
@@ -281,6 +263,7 @@ private void DrawMenu() {
   FadeText(0, 100);
 }
 
+//Functie voor het tekenen van het Highscore scherm
 private void DrawHighScore() {
   textFont(font, 60);
   tint(textFade, 50);
@@ -294,12 +277,15 @@ private void DrawHighScore() {
   FadeText(80, 255);
 }
 
+//Functie voor het toevoegen van health
 public void AddHealth(float amount) {
   playerHealth += amount;
   if (playerHealth > 10) {
     playerHealth = 10;
   }
 }
+
+//Functie voor het afspelen van een particle effect.
 public void particlePlay() {
   ps.addParticle();
   ps.run();

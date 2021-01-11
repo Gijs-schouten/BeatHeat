@@ -1,3 +1,5 @@
+//Class van de gespawnde ballen.
+
 class Ball {
   private float _speed;
   private float xPos;
@@ -7,6 +9,7 @@ class Ball {
   public float enemyChance;
   public PImage NoteSprite;
 
+  //Contructor die parameters toepast.
   Ball(float speed, float y) {
     _speed = speed;
     yPos = y;
@@ -17,6 +20,7 @@ class Ball {
     enemyChanceSetup();
   }
 
+  //Beweegt de ballen over het scherm.
   private void Move() {
     if (clicked) return;
     imageMode(CENTER);
@@ -42,19 +46,14 @@ class Ball {
     }
   }
 
+  //Wordt uitgevoerd wanneer een bal wordt geraakt.
   void Hit() {
     if (clicked) return;
-
     clicked = true;
-    /*if (xPos > ballRightMax) {
-     System.out.println("veel te vroeg");
-     AddScore(missScore);
-     return;
-     }*/
-
     ScoreCalculate();
   }
 
+  //Checkt of de bal niet gemisd is door de speler.
   void CheckPos() {
     if (xPos < 50) {
       if (!clicked && !isEnemy) { 
@@ -65,18 +64,21 @@ class Ball {
     }
   }
 
+  //Functie om score toe te voegen
   void AddScore(float amount) {
     score += amount;
     scoreChange = (int)amount;
     fadeValue = 255;
   }
 
+  //Functie die de juiste score berekend
   void ScoreCalculate() {
     if (isEnemy) {
       AddScore(missScore);
       AddHealth(-4);
       return;
     }
+    
     if (xPos >= ballLeftMin && xPos <= ballRightMin || comboPowerUp) {
       AddScore(perfectScore);
       System.out.println("goed");
@@ -88,7 +90,9 @@ class Ball {
       if (scorePowerUp) {
         AddScore(perfectScore);
       }
-    } 
+      return;
+    }
+    
     if (xPos >= ballRightMin && xPos <= ballRightMax) {
       if (!comboPowerUp) {
         AddScore(minScore);
@@ -100,6 +104,7 @@ class Ball {
       if (scorePowerUp) {
         AddScore(minScore);
       }
+      return;
     }
 
     if (xPos <= ballLeftMin && xPos >= ballLeftMax) {
@@ -108,9 +113,12 @@ class Ball {
         System.out.println("te laat");
         combo = 0;
       }
+      return;
     }
   }
-  void enemyChanceSetup() {
+  
+  //Random kans om van een note een Enemy te maken
+  private void enemyChanceSetup() {
     enemyChance = random(10);
     if (enemyChance > 7) {
       isEnemy = true;

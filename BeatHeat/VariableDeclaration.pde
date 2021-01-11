@@ -38,3 +38,4 @@ public int timerReset = 0;
 public boolean particleActive = false;
 public int particleTimer = 0;
 public int particleTimerCheck = 0;
+public int fadeValue;

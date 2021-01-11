@@ -1,6 +1,6 @@
 //Deze code past de snelheid waarop ballen spawnen aan op de snelheid van de muziek.
 void spawnRate() {
-  
+
   if (menuActive == true) {
     timerStart =+ millis();
   }
