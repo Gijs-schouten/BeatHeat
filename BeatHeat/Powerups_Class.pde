@@ -7,15 +7,9 @@ class PowerUp {
 
   int powerUpType;
 
-
   PowerUp(int tempPowerUpType) {
     powerUpType = tempPowerUpType;
   }
-
-
-  void setup() {
-  }
-
 
   void draw() {
 
@@ -31,23 +25,18 @@ class PowerUp {
   }
 
   void comboBoost() {
-
     textFont(font, 100);
     textSize(30);
     text("Perfect Combo Boost!", 320, 570);
   }
 
   void rowBoost() {
-
-
     textFont(font, 100);
     textSize(30);
     text("One Row Boost!", 320, 570);
   }
 
   void scoreBoost() {
-
-
     textFont(font, 100);
     textSize(30);
     text("Double Score Boost!", 320, 570);

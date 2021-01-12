@@ -2,7 +2,9 @@ import processing.sound.*;
 
 ParticleSystem ps;
 PFont font;
-PImage Player, 
+
+//Images die geladen moeten worden
+private PImage Player, 
   Background, 
   XboardLine, 
   YboardLine, 
@@ -141,7 +143,7 @@ void BallSpawner() {
   }
 }
 
-//Voegt score toe
+//Voegt score toe elke seconde
 void ScoreCounter() {
   score += 1 / frameRate * scoreMultiplier;
 }
@@ -228,6 +230,7 @@ private void DrawGame() {
   image(Healthbar, 470, 68, 400, 40);
 }
 
+// De gebruikte value voor de fadende text
 private int textFade = 0;
 boolean fading = true;
 

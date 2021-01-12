@@ -10,7 +10,6 @@ public float score;
 public float scoreMultiplier = 1;
 public int indexPos = 3;
 private int ballIndex = 0;
-//private int frontBall = 0;
 public int spawnPos;
 private boolean timeStarted;
 private int startTime;

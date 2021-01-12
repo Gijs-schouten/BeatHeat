@@ -1,3 +1,5 @@
+//Classes voor de particle en van het particle system.
+
 class ParticleSystem {
   ArrayList<Particle> particles;
   PVector origin;
@@ -6,11 +8,13 @@ class ParticleSystem {
     origin = position.copy();
     particles = new ArrayList<Particle>();
   }
-
+  
+  //Voegt particle toe aan de array list
   void addParticle() {
     particles.add(new Particle(origin));
   }
-
+  
+  //Runt de run() functie voor alle particles in het particle system
   void run() {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
@@ -37,27 +41,27 @@ class Particle {
     position = l.copy();
     lifespan = 15.0;
   }
-
+  
   void run() {
     update();
     display();
   }
-
-  // Method to update position
+  
+  //Update de particle
   void update() {
     velocity.add(acceleration);
     position.add(velocity);
     lifespan -= 1.0;
   }
 
-  // Method to display
+  //Displayt de particle
   void display() {
     stroke(255, 0, 127);
     fill(0, 255, 255);
     ellipse(position.x, position.y, 8, 8);
   }
 
-  // Is the particle still useful?
+  //Haalt particle weg wanneer nodig is
   boolean isDead() {
     if (lifespan < 0.0) {
       return true;

@@ -1,9 +1,8 @@
 //Hier worden zowel de muziek van het spel zelf als de hit sounds afgespeeld.
 SoundFile perfectHit;
 SoundFile normalHit;
+
 class Beat {
-
-
   void setup() {
   }
 }
